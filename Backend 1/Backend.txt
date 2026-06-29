@@ -1,0 +1,44 @@
+###
+Backend -------
+The backend is the part of a website or app that works behind the scenes. It handles things users don't see, such as:
+---
+Receiving requests from the frontend.
+Processing data and business logic.
+Connecting to databases.
+Authenticating users (login/signup).
+Sending responses back to the frontend.
+---
+Example:
+On Instagram, when you log in:
+
+Frontend: Shows the login form.
+Backend: Checks your email and password in the database and tells the frontend whether you're authenticated.
+
+
+###
+Node Package Manager (npm) -----
+
+npm (Node Package Manager) is a tool used to download, install,
+update, remove, and manage packages (libraries) that other developers have published.
+
+A package is a collection of reusable code that solves a specific problem, so you don't have to write everything from scratch.
+
+
+###
+Node.js
+Node.js is an open-source, cross-platform JavaScript runtime environment that allows you to run JavaScript outside the browser, mainly on the server. It is used to build fast, scalable backend applications, APIs, and web servers.
+
+In simple words:
+
+Node.js lets developers use JavaScript to build the backend of web applications.
+
+Example:
+With Node.js, you can:
+
+Create a web server.
+Build REST APIs.
+Connect to databases.
+Handle user authentication.
+Build real-time applications like chat apps.
+
+
