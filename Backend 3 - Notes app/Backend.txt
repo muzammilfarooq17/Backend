@@ -1,0 +1,610 @@
+###
+Backend -------
+The backend is the part of a website or app that works behind the scenes. It handles things users don't see, such as:
+---
+Receiving requests from the frontend.
+Processing data and business logic.
+Connecting to databases.
+Authenticating users (login/signup).
+Sending responses back to the frontend.
+---
+Example:
+On Instagram, when you log in:
+
+Frontend: Shows the login form.
+Backend: Checks your email and password in the database and tells the frontend whether you're authenticated.
+
+
+###
+Node Package Manager (npm) -----
+
+npm (Node Package Manager) is a tool used to download, install,
+update, remove, and manage packages (libraries) that other developers have published.
+
+A package is a collection of reusable code that solves a specific problem, so you don't have to write everything from scratch.
+
+
+###
+Node.js
+Node.js is an open-source, cross-platform JavaScript runtime environment that allows you to run JavaScript outside the browser, mainly on the server. It is used to build fast, scalable backend applications, APIs, and web servers.
+
+In simple words:
+
+Node.js lets developers use JavaScript to build the backend of web applications.
+
+Example:
+With Node.js, you can:
+
+Create a web server.
+Build REST APIs.
+Connect to databases.
+Handle user authentication.
+Build real-time applications like chat apps.
+
+
+###
+Express.js (Short Definition)
+
+Express.js is a fast, lightweight, and flexible web framework for Node.js that simplifies building web applications and APIs. It provides tools for handling routes, requests, responses, middleware, and server-side logic.
+
+In simple words:
+
+Express.js makes it easier and faster to build backend applications with Node.js.
+
+Example:
+
+With Express.js, you can:
+
+Create web servers.
+Build REST APIs.
+Handle routes (URLs).
+Process HTTP requests and responses.
+Use middleware for authentication, logging, and more.
+
+--------------------
+
+(npm init -y = node.js application initiate krti hia)
+(npm i express = Express js package ko download krti hai)
+express i hone k baad . 
+const express = require('express') -> yai method express ko integrate krta hai locally
+const app = express() -> baki phr app name sai server instnce krte hai
+app.listen(3000) -> server start krne k lye. 
+3000 is port number .
+
+
+app → The Express application object created using express().
+.get() → An Express method that handles HTTP GET requests.
+"/" → The route (URL path). / represents the homepage/root route.
+(req, res) → The callback function that runs when someone visits the route.
+req (Request) → Contains information sent by the client, such as URL, parameters, headers, and body.
+res (Response) → Used to send a response from the server back to the client.
+=> → Arrow function syntax in JavaScript.
+res.send() → Sends a response to the client (text, HTML, JSON, etc.).
+"Hello Habiba Mai Agyyya" → The message sent back to the browser.
+--------------------------------
+
+###
+API
+What is an API?
+API (Application Programming Interface) is a set of rules that allows two software applications to communicate with each other.
+
+In simple words:
+An API acts as a messenger between a client and a server. The client sends a request, and the API returns a response.
+FlowChart:::
+
+Client (Browser/App)
+        │
+     Request
+        │
+       API
+        │
+     Server
+        │
+    Database
+        │
+     Response
+        │
+Client (Browser/App)
+ 
+#####
+Type OF APIs---
+
+### **1. Public API (Open API)**
+A **Public API** is available for anyone to use. Developers can access it to build applications, usually by signing up for an API key.
+**Example:** OpenWeather API, Google Maps API.
+
+---
+
+### **2. Private API**
+A **Private API** is used only within an organization. It helps different internal systems and teams communicate securely.
+**Example:** A company's employee management or payroll system.
+
+---
+
+### **3. Partner API**
+A **Partner API** is shared only with authorized business partners. Access is restricted and usually requires authentication or an agreement.
+**Example:** A payment gateway API provided to partner websites.
+
+---
+
+### **4. Composite API**
+A **Composite API** combines multiple API requests into a single request. This reduces the number of network calls and improves performance.
+**Example:** Fetching a user's profile, orders, and cart with one request.
+
+---
+
+### **5. REST API**
+A **REST API** is the most widely used type of web API. It uses HTTP methods like **GET, POST, PUT, and DELETE** and typically exchanges data in JSON format.
+**Example:** An Express.js API that returns a list of users.
+
+---
+
+### **6. GraphQL API**
+A **GraphQL API** allows clients to request exactly the data they need. This avoids receiving unnecessary data and makes data fetching more efficient.
+**Example:** A mobile app requesting only a user's name and profile picture.
+
+---
+
+### **7. SOAP API**
+A **SOAP API** is a protocol that uses XML to exchange data. It is highly secure and commonly used in enterprise applications such as banking and healthcare.
+**Example:** Online banking or insurance systems.
+
+---
+
+### **8. gRPC API**
+**gRPC** is a high-performance API framework developed by Google. It uses Protocol Buffers instead of JSON, making communication faster and more efficient.
+**Example:** Communication between microservices in large-scale applications.
+
+
+####
+REST API ----
+REST API (Representational State Transfer API)
+
+A REST API is the most common type of web API used for
+communication between a client and a server. It uses 
+standard HTTP methods such as GET, POST, PUT, and DELETE
+to perform operations on resources and typically exchanges 
+data in JSON format.
+
+
+GET = SERVER SAI DATA LENA , MANGWANA HO Y FETCH KRNA HO TB USE krte
+POST = SERVER PR DATA SEND KRNA HO TOU 
+PATCH = SERVER PR ALREADY DATA HAI US KO UPDATE KRNE K lye
+DELETE = DATA SERVER PR HO OR USE DELETE KRNE KAI LYE .
+
+###
+HTTP Status Codes (Main Categories)
+HTTP status codes are **3-digit numbers** returned by the server to tell the client (browser, Postman, mobile app, etc.) what happened to the request.
+
+## 1xx – Informational
+
+The request has been received, and the server is continuing to process it.
+
+* **100 Continue** – The client can continue sending the request.
+* **101 Switching Protocols** – The server is switching to another protocol (e.g., WebSocket).
+
+---
+
+## 2xx – Success
+
+The request was successful.
+
+* **200 OK** – The request was successful, and the server returned the requested data.
+* **201 Created** – A new resource was successfully created (commonly used with `POST`).
+* **202 Accepted** – The request has been accepted for processing but is not completed yet.
+* **204 No Content** – The request succeeded, but there is no data to return.
+
+---
+
+## 3xx – Redirection
+
+The client needs to take another action to complete the request.
+
+* **301 Moved Permanently** – The resource has been permanently moved to a new URL.
+* **302 Found** – The resource is temporarily available at another URL.
+* **304 Not Modified** – The cached version is still valid, so no new data is sent.
+* **307 Temporary Redirect** – Temporary redirect while preserving the original HTTP method.
+* **308 Permanent Redirect** – Permanent redirect while preserving the original HTTP method.
+
+---
+
+## 4xx – Client Errors
+
+The request has a problem caused by the client.
+
+* **400 Bad Request** – The request is invalid or contains incorrect data.
+* **401 Unauthorized** – Authentication is required or the credentials are invalid.
+* **403 Forbidden** – The client is authenticated but does not have permission.
+* **404 Not Found** – The requested resource does not exist.
+* **405 Method Not Allowed** – The HTTP method (GET, POST, etc.) is not allowed.
+* **406 Not Acceptable** – The server cannot provide a response matching the requested format.
+* **408 Request Timeout** – The client took too long to send the request.
+* **409 Conflict** – The request conflicts with the current state of the resource.
+* **410 Gone** – The resource has been permanently removed.
+* **413 Payload Too Large** – The request body exceeds the allowed size.
+* **415 Unsupported Media Type** – The server does not support the request's content type.
+* **422 Unprocessable Content** – The request format is correct, but the data fails validation.
+* **429 Too Many Requests** – The client has sent too many requests in a short time (rate limit exceeded).
+
+---
+
+## 5xx – Server Errors
+
+The request was valid, but the server failed to process it.
+
+* **500 Internal Server Error** – A generic server error occurred.
+* **501 Not Implemented** – The server does not support the requested functionality.
+* **502 Bad Gateway** – A gateway or proxy received an invalid response from another server.
+* **503 Service Unavailable** – The server is temporarily unavailable (maintenance or overload).
+* **504 Gateway Timeout** – A gateway or proxy timed out waiting for another server.
+* **505 HTTP Version Not Supported** – The server does not support the HTTP version used.
+
+---
+
+# What is an HTTP Server?
+
+An **HTTP server** is software that receives HTTP requests from clients (such as browsers, mobile apps, or Postman), processes them, and sends back an HTTP response.
+
+Examples:
+
+* Express.js (Node.js)
+* Apache HTTP Server
+* Nginx
+* Microsoft IIS
+
+### Example Flow
+
+```
+Browser
+   │
+   │ GET /users
+   ▼
+HTTP Server (Express)
+   │
+   │ Processes request
+   ▼
+Database
+   │
+   ▼
+HTTP Server
+   │
+   │ 200 OK + JSON data
+   ▼
+Browser
+```
+
+---
+
+# What is an HTTPS Server?
+
+An **HTTPS server** is an HTTP server that uses **SSL/TLS encryption** to secure communication between the client and the server. Data is encrypted so others cannot read or modify it during transmission.
+
+Benefits:
+
+* Encrypts passwords, payment details, and personal information.
+* Verifies the website's identity using an SSL/TLS certificate.
+* Protects against man-in-the-middle attacks.
+* Required for many modern browser features.
+
+---
+
+## HTTP vs HTTPS
+
+| HTTP                       | HTTPS                           |
+| -------------------------- | ------------------------------- |
+| Data is sent in plain text | Data is encrypted               |
+| Less secure                | Highly secure                   |
+| Uses port **80**           | Uses port **443**               |
+| URL starts with `http://`  | URL starts with `https://`      |
+| No SSL/TLS certificate     | Requires an SSL/TLS certificate |
+
+---
+
+## Example Express HTTP Server
+
+```javascript
+const express = require("express");
+const app = express();
+
+app.get("/", (req, res) => {
+  res.status(200).send("Hello World");
+});
+
+app.listen(3000, () => {
+  console.log("HTTP Server running on port 3000");
+});
+```
+
+---
+
+## Example Express HTTPS Server
+
+```javascript
+const express = require("express");
+const https = require("https");
+const fs = require("fs");
+
+const app = express();
+
+app.get("/", (req, res) => {
+  res.send("Secure HTTPS Server");
+});
+
+const options = {
+  key: fs.readFileSync("private.key"),
+  cert: fs.readFileSync("certificate.crt")
+};
+
+https.createServer(options, app).listen(443, () => {
+  console.log("HTTPS Server running on port 443");
+});
+```
+
+---
+
+## Interview Tip
+
+Remember the most commonly used status codes:
+
+* **200** → Success
+* **201** → Resource Created
+* **204** → Success, no content
+* **400** → Bad Request
+* **401** → Unauthorized
+* **403** → Forbidden
+* **404** → Not Found
+* **409** → Conflict
+* **422** → Validation Error
+* **500** → Internal Server Error
+* **503** → Service Unavailable
+
+These are the status codes you'll encounter most often when building REST APIs with Express.js.
+
+
+####
+1. Web Server (Most Important)
+
+A Web Server delivers static files like HTML, CSS, JavaScript, images, and videos to the user's browser using HTTP/HTTPS.
+
+Examples: Nginx, Apache, IIS
+
+Example Flow:
+
+Browser
+   │
+   ▼
+Web Server (Nginx)
+   │
+   ▼
+HTML, CSS, JS
+
+Use: Hosting frontend websites.
+
+2. Application Server (Backend Server)
+
+An Application Server runs your backend code, processes requests, applies business logic, communicates with the database, and returns responses.
+
+Examples: Express.js, Django, Spring Boot, Laravel
+
+Example:
+
+GET /users
+        │
+        ▼
+Express Server
+        │
+        ▼
+Returns JSON
+
+Use: Running backend applications.
+
+3. Database Server
+
+A Database Server stores and manages your application's data.
+
+Examples:
+
+MongoDB
+MySQL
+PostgreSQL
+
+Example:
+
+Express Server
+      │
+      ▼
+MongoDB
+      │
+      ▼
+User Data
+
+Use: Saving users, products, orders, posts, etc.
+
+4. API Server
+
+An API Server exposes endpoints that clients can call to send or receive data.
+
+Examples:
+
+Express.js
+FastAPI
+NestJS
+
+Example:
+
+GET /users
+POST /login
+PUT /profile
+DELETE /note/1
+
+Response
+
+{
+  "name": "Ali",
+  "age": 22
+}
+5. Reverse Proxy Server
+
+A Reverse Proxy Server sits in front of your backend and forwards incoming requests to the correct application server.
+
+Examples: Nginx, HAProxy
+
+Benefits:
+
+Load balancing
+SSL (HTTPS)
+Better security
+Faster performance
+
+Flow:
+
+Browser
+   │
+   ▼
+Nginx
+   │
+   ▼
+Express Server
+6. DNS Server
+
+A DNS Server translates a domain name into an IP address so the browser knows where to connect.
+
+Example:
+
+google.com
+      │
+      ▼
+142.250.xxx.xxx
+
+Without DNS, users would need to remember IP addresses instead of domain names.
+
+Complete Web Request Flow
+User
+ │
+ ▼
+DNS Server
+ │
+ ▼
+Web Server (Nginx)
+ │
+ ▼
+Application Server (Express.js)
+ │
+ ▼
+Database Server (MongoDB)
+ │
+ ▼
+Application Server
+ │
+ ▼
+Browser
+In the MERN Stack
+Layer	Technology	Server Type
+Frontend	React	Served by a Web Server
+Backend	Express.js + Node.js	Application/API Server
+Database	MongoDB	Database Server
+Domain	Cloudflare / Google DNS	DNS Server
+Production	Nginx	Reverse Proxy Server
+Which should you learn first?
+Application Server (Express.js) ⭐⭐⭐⭐⭐
+API Server (REST APIs) ⭐⭐⭐⭐⭐
+Database Server (MongoDB) ⭐⭐⭐⭐⭐
+Web Server (Nginx basics) ⭐⭐⭐⭐☆
+DNS basics ⭐⭐⭐☆☆
+Reverse Proxy (Nginx) ⭐⭐⭐⭐☆
+
+###
+
+### Database Operations (CRUD) – Short Notes
+
+* **Create** → Add new data to the database.
+
+  * HTTP Method: `POST`
+  * Example: Create a new user.
+
+* **Read** → Retrieve data from the database.
+
+  * HTTP Method: `GET`
+  * Example: Get all users or a specific user.
+
+* **Update** → Modify existing data.
+
+  * HTTP Methods: `PUT` (replace) or `PATCH` (partial update)
+  * Example: Change a user's email.
+
+* **Delete** → Remove data from the database.
+
+  * HTTP Method: `DELETE`
+  * Example: Delete a user by ID.
+
+### CRUD Summary
+
+| Operation | HTTP Method     | Purpose      |
+| --------- | --------------- | ------------ |
+| Create    | `POST`          | Add new data |
+| Read      | `GET`           | Fetch data   |
+| Update    | `PUT` / `PATCH` | Modify data  |
+| Delete    | `DELETE`        | Remove data  |
+
+**Easy way to remember:**
+
+* **POST** → Create
+* **GET** → Read
+* **PUT/PATCH** → Update
+* **DELETE** → Delete
+
+
+CRUD.
+C => Create
+R => Read
+U => Update
+D => Delete
+
+lOCHl2HAgXgo7R1t // password 
+mongodb+srv://Backend:lOCHl2HAgXgo7R1t@backend.gnippgw.mongodb.net/
+
+
+ ####
+ ## Mongoose (Short Notes)
+
+**Mongoose** is an **ODM (Object Data Modeling)** library for **Node.js** that makes it easier to work with **MongoDB**.
+
+### Key Points
+
+* Connects a Node.js application to MongoDB.
+* Defines the structure of data using **Schemas**.
+* Creates **Models** to interact with collections.
+* Provides built-in **validation** and CRUD methods.
+* Makes database operations simpler than using the native MongoDB driver.
+
+### Basic Flow
+
+```text
+Node.js/Express
+      │
+      ▼
+   Mongoose
+      │
+      ▼
+   MongoDB
+```
+
+### Common Methods
+
+* `connect()` → Connect to MongoDB
+* `create()` → Insert data
+* `find()` → Get all data
+* `findById()` → Get data by ID
+* `findByIdAndUpdate()` → Update data
+* `findByIdAndDelete()` → Delete data
+* `save()` → Save a document
+
+### Example
+
+```javascript
+const mongoose = require("mongoose");
+
+mongoose.connect("mongodb://127.0.0.1:27017/myDB");
+```
+**One-line definition (Interview):**
+> **Mongoose is an ODM library for Node.js that simplifies working with MongoDB by using schemas, models, and built-in methods for database operations.**
