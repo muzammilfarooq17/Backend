@@ -48,6 +48,29 @@ app.get("/posts", async (req, res) => {
         return res.status(500).json({ message: "Server Error" });
     }
 });
+app.delete("/post/:id", async (req, res) => {
+    try {
+        const postId = req.params.id;
+
+        // Database se post dhoond kar delete karein
+        const deletedPost = await postModel.findByIdAndDelete(postId);
+
+        // Agar post nahi mili (ya pehle hi delete ho chuki hai)
+        if (!deletedPost) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+
+        return res.status(200).json({ 
+            message: "Post deleted successfully", 
+            deletedPost 
+        });
+    } catch (error) {
+        console.error("Delete Error:", error);
+        return res.status(500).json({ message: "Error deleting post" });
+    }
+});
+
+
 
 // 🟢 ZAROORI CHECK: Agar aap kisi aur file me app.listen nahi chala rahe, 
 // to isey uncomment (un-comment) kar dein:
