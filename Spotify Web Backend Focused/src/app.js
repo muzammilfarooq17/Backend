@@ -8,6 +8,6 @@ const app = express();
 app.use(express.json());
 app.use(cookireParser());
 app.use("/api/auth", authroutes)
-app.use("/api/music", authroutes)
+app.use("/api/music", musicroutes)
 
 module.exports = app;

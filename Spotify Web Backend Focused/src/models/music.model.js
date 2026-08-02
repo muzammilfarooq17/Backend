@@ -1,21 +1,20 @@
 const mongoose = require('mongoose');
 
-
 const musicSchema = new mongoose.Schema({
-  uri:{
+  uri: {
     type: String,
-    required:true,
+    required: true,
   },
-  title:{
-    type:String,
-    required:true,
+  title: {
+    type: String,
+    required: true,
   },
-  artist:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:user,
-    required:true,
+  artist: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user', // 👈 Yahan quotes (' ') lagayein
+    required: true,
   } 
-})
+});
 
-const musicModel = mongoose.model("music",musicSchema)
-module.exports = musicModel
+const musicModel = mongoose.model("music", musicSchema);
+module.exports = musicModel;
