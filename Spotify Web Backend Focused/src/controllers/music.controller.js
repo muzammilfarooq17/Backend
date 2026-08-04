@@ -1,4 +1,5 @@
 const musicModel = require("../models/music.model");
+const albumModel = require("../models/album.model");
 const jwt = require("jsonwebtoken");
 const { uploadFile } = require("../services/storage.service");
 
@@ -63,6 +64,29 @@ async function createMusic(req, res) {
             error: uploadError.message || uploadError
         });
     }
+}
+
+async function createAlbum (req,res) {
+    const token = req.cookies.token;
+    if(!token){
+        return res.status(401).json({
+            message:"unauthorized"
+        })
+    }
+
+    try{
+        const decoded = jwt.verify(token,process.env.jwt.JWT_SECRET)
+        if(decoded.role !== "artist"){
+            return res.status(403).json({message:"you don't have acces to make album"})
+        }
+
+    }catch(err){
+        console.log(err);
+        return res.status(401).json({message:"unauthorized"})
+        
+
+    }
+
 }
 
 module.exports = { createMusic };
