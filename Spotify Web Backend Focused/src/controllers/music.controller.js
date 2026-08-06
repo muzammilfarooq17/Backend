@@ -1,9 +1,4 @@
-const musicModel = require("../models/music.model");
-const albumModel = require("../models/album.model");
-const jwt = require("jsonwebtoken");
-const { uploadFile } = require("../services/storage.service");
-
-async function createMusic(req, res) {
+async function createAlbum(req, res) {
     const token = req.cookies.token;
 
     if (!token) {
@@ -12,81 +7,43 @@ async function createMusic(req, res) {
         });
     }
 
-    let decoded;
-
     try {
-        decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
         if (decoded.role !== "artist") {
             return res.status(403).json({
-                message: "You don't have access to create music",
+                message: "You don't have access to create album",
             });
         }
-    } catch (err) {
-        return res.status(401).json({
-            message: "Unauthorized",
-        });
-    }
 
-    const { title } = req.body;
-    const file = req.file;
+        const { title, musicIds } = req.body;
 
-    if (!file) {
-        return res.status(400).json({
-            message: "No file uploaded",
-        });
-    }
-
-    try {
-        // Safe check: Buffer ko base64 string stream mein convert kar rahe hain wrapper ke sath
-        const base64Data = `data:${file.mimetype};base64,${file.buffer.toString("base64")}`;
-        
-        const result = await uploadFile(base64Data, file.originalname);
-
-        const music = await musicModel.create({
-            uri: result.secure_url,
+        const album = await albumModel.create({
             title,
+            musics: musicIds,
             artist: decoded.id,
         });
 
         return res.status(201).json({
-            message: "Music uploaded successfully",
-            music: {
-                id: music._id,
-                uri: music.uri,
-                title: music.title,
-                artist: music.artist,
-            },
+            message: "Album created successfully",
+            album:{
+                id:album._id,
+                title:album.title,
+                artist:album.artist,
+                musics:album.musics,
+            }
         });
-    } catch (uploadError) {
-        return res.status(500).json({
-            message: "Failed to upload music to storage",
-            error: uploadError.message || uploadError
-        });
-    }
-}
 
-async function createAlbum (req,res) {
-    const token = req.cookies.token;
-    if(!token){
-        return res.status(401).json({
-            message:"unauthorized"
-        })
-    }
-
-    try{
-        const decoded = jwt.verify(token,process.env.jwt.JWT_SECRET)
-        if(decoded.role !== "artist"){
-            return res.status(403).json({message:"you don't have acces to make album"})
-        }
-
-    }catch(err){
+    } catch (err) {
         console.log(err);
-        return res.status(401).json({message:"unauthorized"})
-        
 
+        return res.status(401).json({
+            message: "Unauthorized",
+        });
     }
-
 }
 
-module.exports = { createMusic };
+module.exports = {
+    createMusic,
+    createAlbum,
+};
