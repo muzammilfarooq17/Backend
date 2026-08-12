@@ -957,3 +957,15 @@ Password:  admin123
 Hashed:    $2b$10$X7gJm...
 
 The hash is stored in the database instead of the actual password.
+
+
+
+If you mean middleware in Express.js, its main benefits are:
+
+Authentication 🔐 – Checks if a user is logged in before accessing a route.
+Authorization 🛡️ – Checks if the user has permission, e.g. admin or artist.
+Code Reusability ♻️ – Write a function once and use it on many routes.
+Request Processing ⚙️ – Can modify or process req before it reaches the controller.
+Error Handling ❌ – Handles errors in one central place.
+Logging 📝 – Can record information about requests, such as URL and method.
+Validation ✅ – Checks whether incoming data is correct before processing i
