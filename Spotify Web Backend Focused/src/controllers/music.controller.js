@@ -14,6 +14,12 @@ async function createMusic(req, res) {
         });
     }
 
+    if (!title) {
+        return res.status(400).json({
+            message: "Music title is required",
+        });
+    }
+
     try {
         const base64Data = `data:${file.mimetype};base64,${file.buffer.toString(
             "base64"
@@ -41,6 +47,8 @@ async function createMusic(req, res) {
         });
 
     } catch (error) {
+        console.log(error);
+
         return res.status(500).json({
             message: "Failed to upload music",
             error: error.message,
@@ -54,6 +62,18 @@ async function createMusic(req, res) {
 async function createAlbum(req, res) {
     try {
         const { title, musics } = req.body;
+
+        if (!title) {
+            return res.status(400).json({
+                message: "Album title is required",
+            });
+        }
+
+        if (!Array.isArray(musics)) {
+            return res.status(400).json({
+                message: "Musics must be an array",
+            });
+        }
 
         const album = await albumModel.create({
             title,
@@ -82,9 +102,60 @@ async function createAlbum(req, res) {
 }
 
 
+// ==================== GET ALL MUSICS ====================
+
+async function getAllMusics(req, res) {
+    try {
+        const musics = await musicModel
+            .find()
+            .populate("artist", "username email");
+
+        return res.status(200).json({
+            message: "Music fetched successfully",
+            musics,
+        });
+
+    } catch (error) {
+        console.log(error);
+
+        return res.status(500).json({
+            message: "Failed to fetch music",
+            error: error.message,
+        });
+    }
+}
+
+
+// ==================== GET ALL ALBUMS ====================
+
+async function getAllAlbums(req, res) {
+    try {
+        const albums = await albumModel
+            .find()
+            .populate("artist", "username email")
+            .populate("musics");
+
+        return res.status(200).json({
+            message: "Albums fetched successfully",
+            albums,
+        });
+
+    } catch (error) {
+        console.log(error);
+
+        return res.status(500).json({
+            message: "Failed to fetch albums",
+            error: error.message,
+        });
+    }
+}
+
+
 // ==================== EXPORT ====================
 
 module.exports = {
     createMusic,
     createAlbum,
+    getAllMusics,
+    getAllAlbums,
 };

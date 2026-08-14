@@ -10,7 +10,7 @@ async function uploadFile(fileBuffer) {
     return new Promise((resolve, reject) => {
         const uploadStream = cloudinary.uploader.upload_stream(
             {
-                resource_type: "auto", // Audio files ke liye 'video' hi use hota hai Cloudinary mein
+                resource_type: "auto", 
                 folder: "spotify-clone/music",
             },
             (error, result) => {
