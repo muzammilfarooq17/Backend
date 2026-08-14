@@ -126,12 +126,13 @@ async function getAllMusics(req, res) {
 }
 
 
-// ==================== GET ALL ALBUMS ====================
+// ==================== GET ALL ALBUMS (FIXED) ====================
 
 async function getAllAlbums(req, res) {
     try {
         const albums = await albumModel
             .find()
+            .select("title artist")
             .populate("artist", "username email")
             .populate("musics");
 
@@ -150,6 +151,35 @@ async function getAllAlbums(req, res) {
     }
 }
 
+async function getAlbumById(req, res) {
+    try {
+        const albumId = req.params.albumId;
+
+        const album = await albumModel
+            .findById(albumId)
+            .populate("artist", "username email")
+            .populate("musics");
+
+        if (!album) {
+            return res.status(404).json({
+                message: "Album not found",
+            });
+        }
+
+        return res.status(200).json({
+            message: "Album fetched successfully",
+            album,
+        });
+
+    } catch (error) {
+        console.log(error);
+
+        return res.status(500).json({
+            message: "Failed to fetch album",
+            error: error.message,
+        });
+    }
+}
 
 // ==================== EXPORT ====================
 
@@ -158,4 +188,5 @@ module.exports = {
     createAlbum,
     getAllMusics,
     getAllAlbums,
+    getAlbumById,
 };

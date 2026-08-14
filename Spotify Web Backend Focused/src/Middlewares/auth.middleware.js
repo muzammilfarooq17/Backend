@@ -24,28 +24,26 @@ async function authArtist(req, res, next) {
         return res.status(401).json({ message: "Unauthorized: Invalid or expired token" });
     }
 }
-
-async function authUser(req,res,next){
-    const token = req.cookies.token
-
-     if (!token) {
-        return res.status(401).json({ message: "Unauthorized: No token provided" });
-    }
-
-    try{
-        const decoded = jwt.verify(token,process.env.JWT_SECRET)
-
-         if (decoded.role !== "user" && jwt.decode.role !== "artist  ") {
-            return res.status(403).json({ message: "You Dont Have Acess" });
+const authUser = (req, res, next) => {
+    try {
+        const token = req.headers.authorization?.split(" ")[1] || req.cookies?.token;
+        
+        if (!token) {
+            // IF TOKEN MISSING -> Return response immediately!
+            return res.status(401).json({ message: "Unauthorized access: No token provided" });
         }
 
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded;
 
-    }catch(err){
-        console.error("Auth Middleware Error:", err);
-        return res.status(401).json({ message: "Unauthorized: Invalid or expired token" });
+        // MUST CALL NEXT TO PASS CONTROL TO THE CONTROLLER
+        next(); 
 
+    } catch (error) {
+        // IF TOKEN INVALID -> Return response immediately!
+        return res.status(401).json({ message: "Invalid or expired token", error: error.message });
     }
-}
+};
 
 // Fixed export to match authMiddleware.authArtist in routes
 module.exports = {

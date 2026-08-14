@@ -20,7 +20,7 @@ const upload = multer({
             path.extname(file.originalname).toLowerCase()
         );
 
-        // Allowed MIME types (including generic binary types sent by some clients/Postman)
+        // Allowed MIME types
         const isMimeValid =
             file.mimetype.startsWith("audio/") ||
             file.mimetype === "application/octet-stream";
@@ -55,6 +55,13 @@ router.post(
     musicController.createMusic
 );
 
+// Get all music tracks
+router.get(
+    "/",
+    authMiddleware.authUser,
+    musicController.getAllMusics
+);
+
 // ==================== ALBUM ROUTES ====================
 
 // Create new album (Artist only)
@@ -63,8 +70,19 @@ router.post(
     authMiddleware.authArtist,
     musicController.createAlbum
 );
-router.get("/",authMiddleware.authUser,musicController.getAllMusics)
-router.get("/",authMiddleware.authUser,musicController.getAllAlbums)
 
+// Get all albums
+router.get(
+    "/album",
+    authMiddleware.authUser,
+    musicController.getAllAlbums
+);
+
+// Get single album by ID (FIXED: Added colon ':' and changed route to '/album/:albumId')
+router.get(
+    "/album/:albumId",
+    authMiddleware.authUser,
+    musicController.getAlbumById
+);
 
 module.exports = router;
