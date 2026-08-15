@@ -984,3 +984,18 @@ expect(sum(2, 3)).toBe(5);
 
 If the result is 5 → ✅ Test passes.
 If not → ❌ Test fails.
+
+
+
+Supertest is a Node.js library used to test APIs/HTTP requests.
+
+For example, you can use it to test an Express.js API:
+
+request(app)
+  .get("/users")
+  .expect(200);
+
+👉 Jest = tests your JavaScript code
+👉 Supertest = tests your APIs/routes
+
+They are often used together.
