@@ -969,3 +969,18 @@ Request Processing ⚙️ – Can modify or process req before it reaches the co
 Error Handling ❌ – Handles errors in one central place.
 Logging 📝 – Can record information about requests, such as URL and method.
 Validation ✅ – Checks whether incoming data is correct before processing i
+
+
+
+
+
+Jest is a JavaScript testing framework used to check whether your code works correctly.
+
+👉 In simple words: Jest helps you find bugs by automatically testing your code.
+
+Example:
+
+expect(sum(2, 3)).toBe(5);
+
+If the result is 5 → ✅ Test passes.
+If not → ❌ Test fails.
