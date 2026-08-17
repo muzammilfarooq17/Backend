@@ -1,0 +1,19 @@
+{
+  "name": "jest-and-supertest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx nodemon server.js",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1",
+    "supertest": "^7.2.2"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2"
+  }
+}
