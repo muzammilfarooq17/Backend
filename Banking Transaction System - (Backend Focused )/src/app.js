@@ -1,11 +1,17 @@
 const express = require('express')
+const authRouter = require("./routes/auth.routes")
+
 
 const app = express();
 app.use(express.json())
 
-// app.get("/",(req,res)=>{
-//     res.json({mesaage:"Hello world"})
-// })
+app.use("/api/auth/",authRouter)
+
+// router.post("/register")
+
+
+
+
 
 
 
