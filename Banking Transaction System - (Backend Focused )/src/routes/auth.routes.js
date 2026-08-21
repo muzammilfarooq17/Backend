@@ -1,16 +1,15 @@
-const express = require('express');
-const authController = require("../controllers/auth.controller")
+const express = require("express");
+const router = express.Router();
+const {
+  userRegisterContoller,
+  userLoginController,
+  resendEmailController,
+} = require("../controllers/auth.controller");
+//auth register
+router.post("/register", userRegisterContoller);
+// auth user login
+router.post("/login", userLoginController);
+// emailsend and resend
+router.post("/resend-email", resendEmailController);
 
-const router = express.Router()
-
-
-//POST api/auth/register
-router.post("/register",authController.userRegisterContoller)
-
-//POST api/auth/login
-router.post("/login",authController.userLoginController)
-
-
-
-
-module.exports = router
+module.exports = router;
