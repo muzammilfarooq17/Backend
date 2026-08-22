@@ -101,32 +101,7 @@ async function userLoginController(req, res) {
   }
 }
 
-// Bar bar test email bhejne ke liye controller
-// POST /api/auth/resend-email
-async function resendEmailController(req, res) {
-  try {
-    const { email, name } = req.body;
-
-    if (!email) {
-      return res.status(400).json({ message: "Email is required" });
-    }
-
-    await emailService.sendRegistrationEmail(email, name || "User");
-
-    return res.status(200).json({
-      status: "success",
-      message: `Email successfully sent to ${email}`,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      status: "failed",
-      message: error.message,
-    });
-  }
-}
-
 module.exports = {
   userRegisterContoller,
   userLoginController,
-  resendEmailController,
 };
